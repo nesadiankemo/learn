@@ -1,0 +1,7 @@
+#include "test.h"
+int main()
+{
+	testprintf();
+	testprintf1();
+	return 0;
+}
