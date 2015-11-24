@@ -1,0 +1,85 @@
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+	int i;
+	char ch;
+	FILE *fp = NULL;
+
+	/*for(i = 0; i < argc; i++)
+		printf("%s\n", argv[i]);*/
+	i = argc;
+	
+	if(i <= 1)
+		return 0;
+
+	//printf("argc: %d argv[2][0]: %c\n", i, argv[2][0]);
+
+	fp = fopen(argv[1], "r");
+	if(fp == NULL){
+		printf("open file %s fail!\n", argv[1]);
+		printf("Enter 'Y' to creat file, or other key to exit:");
+		if((ch = getchar()) == 'Y' || ch == 'y'){
+			fp = fopen(argv[1], "w");
+			if(fp == NULL){
+				printf("file creat fail!\n");
+				return -1;
+			}
+			else
+				printf("file %s creat success!\n", argv[1]);
+		}
+		else
+			return -1;
+	}
+	fclose(fp);
+	fp = NULL;
+	if(i <= 2){
+		fp = fopen(argv[1], "r");
+		if(fp == NULL){
+			printf("read file fail!\n");
+			return -1;
+		}
+		while((ch = getc(fp)) != EOF)
+			putchar(ch);
+		fclose(fp);
+		return 0;
+	}
+	switch(argv[2][0]){
+		case 'r':
+			fp = fopen(argv[1], "r");
+			if(fp == NULL){
+				printf("open file fail!\n");
+				return -1;
+			}
+			while((ch = getc(fp)) != EOF)
+				putchar(ch);
+			fclose(fp);
+			break;
+		case 'w':
+			fp = fopen(argv[1], "w");
+			if(fp == NULL){
+				printf("open file fail!\n");
+				return -1;
+			}
+			printf("please enter the words you wanna write down(enter '#' while you done.):\n");
+			while((ch = getc(stdin)) != '#')
+				fputc(ch, fp);
+			fclose(fp);
+			break;
+		case 'a':
+			fp = fopen(argv[1], "a");
+			if(fp == NULL){
+				printf("open file fail!\n");
+				return -1;
+			}
+			printf("please enter the words you wanna attach(enter '#' while you done.):\n");
+			while((ch = getc(stdin)) != '#')
+				fputc(ch, fp);
+			fclose(fp);
+			break;
+		default :
+			break;
+	}
+	//scanf("%d", &i);
+	return 0;
+}

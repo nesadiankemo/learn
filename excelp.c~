@@ -1,0 +1,45 @@
+#include <unistd.h>
+#include <stdio.h>
+#include <string.h>
+
+int main(int argc, char *argv[])
+{
+	char buf[BUFSIZE];
+	int n;
+	pid_t fpid;
+	while((n = read(STDIN_FILENO, buf, BUFSIZE)) > 0 ){
+		buf[n - 1] = '\0';
+		fpid = fork();
+		if(fpid < 0){
+			printf("fork error!\n");
+			return 0;
+		}
+		else if(fpid == 0){
+			excelp();
+		}
+		
+	}
+}
+
+#include <unistd.h>
+#include <stdio.h>
+
+int main()
+{
+	pid_t fpid;
+	int count = 0;
+	printf("before fork()\n");
+	fpid = fork();
+	if(fpid < 0){
+		printf("error!\n");
+	}else if(fpid == 0){
+		printf("I am the child process, my process id is %d\n", getpid());
+		count ++;
+	}else{
+		printf("I am the parent process, my process id is %d\n", getpid());
+		count ++;
+	}
+
+	printf("统计：%d\n", count);
+	return 0;
+}
