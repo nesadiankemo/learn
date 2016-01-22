@@ -3,6 +3,7 @@
 
 int main()
 {
+	printf("size of int: %d bytes\n", sizeof(int));
 	printf("123456781234567812345678\n");
 	printf("1\t123\t1234\n");
 	printf("123456789\t123\n");

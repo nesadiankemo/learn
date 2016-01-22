@@ -20,4 +20,4 @@ doc/**/*.pdf
 *.o
 
 # ignore all file end with '~'
-*~
+*.*~
